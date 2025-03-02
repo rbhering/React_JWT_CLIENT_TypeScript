@@ -1,11 +1,16 @@
 import {useEffect} from 'react'
 import AuthService from "../services/AuthService"; 
 
+const URL = 'http://localhost:3000/';
 
 const RefreshToken = () => {    
     // useEffect(() => {
         setInterval(() => {
-         AuthService.loginWithRefreshToken(AuthService.getCurrentUser().refreshToken);
+          if(window.location.href !==URL){
+            //alert(window.location.href)
+            AuthService.loginWithRefreshToken(AuthService.getCurrentUser().refreshToken);
+            return 1;
+          }  
         }, 1 * 60 * 1000);
     //   }, [])
       return 1;
