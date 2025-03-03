@@ -1,5 +1,6 @@
 import axios from "axios";
 import AuthHeader from './AuthHeader';
+import Post from "../interfaces/Post";
 
 const baseURL = "https://localhost:5001";
 
@@ -8,6 +9,11 @@ const API_URL = "/api/posts";
 const getAllPosts = () => {
   return axios.get(baseURL+API_URL, { headers: AuthHeader() });
 };
+
+const getPostsById = (id: number) => {
+  return axios.get<Post>(baseURL + API_URL+"/getPostById", {headers: AuthHeader(), params: { id}});
+};
+
 
 
 const getPostsPerPage = (page: number, limit: number) => {
@@ -21,7 +27,8 @@ const getPostCount = () => {
 const PostService = {
   getAllPosts,
   getPostsPerPage,
-  getPostCount
+  getPostCount,
+  getPostsById
 };
 
 export default PostService;

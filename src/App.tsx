@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
-import { Routes, Route, Router, useNavigate } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Util from "./hooks/Util";
 import Login from "./pages/Login"
 import Posts from "./pages/Posts";
 import Footer from "./components/Footer";
-import AuthService from "./services/AuthService";
+import Post from "./pages/Post";
+import EditorTeste from "./pages/EditorTeste";
+
+
 
 function App() {
   // Call the function outside of the JSX
@@ -18,8 +20,13 @@ function App() {
       <Routes>
         <Route path="/posts" element={<Posts />} />
         <Route path="/" element={<Login />} />
+        <Route path="/post" element={<Post />} />
+        <Route path="/editorTeste" element={<EditorTeste />} />
+        
+        
       </Routes>
       <Footer />
+      
     </div>
   
   </div>

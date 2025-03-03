@@ -1,19 +1,24 @@
-import {useEffect} from 'react'
 import AuthService from "../services/AuthService"; 
 
 const URL = 'http://localhost:3000/';
 
+
 const RefreshToken = () => {    
-    // useEffect(() => {
-        setInterval(() => {
-          if(window.location.href !==URL){
-            //alert(window.location.href)
-            AuthService.loginWithRefreshToken(AuthService.getCurrentUser().refreshToken);
-            return 1;
-          }  
-        }, 1 * 60 * 1000);
-    //   }, [])
-      return 1;
+
+  setInterval(() => {          
+    if(window.location.href !==URL){
+      //alert(window.location.href)
+      try {
+        AuthService.loginWithRefreshToken(AuthService.getCurrentUser().refreshToken);              
+        return 1;
+      } catch (error) {
+        console.log(error);
+        window.location.reload();
+        return 1;
+      }     
+    }  
+  }, 1 * 60 * 1000);
+return 1;
 };
 
 // const RenderPost = () => {
