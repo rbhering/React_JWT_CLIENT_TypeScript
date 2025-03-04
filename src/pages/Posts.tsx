@@ -41,6 +41,8 @@ function Home() {
       console.log(error);
     }
   }, [page]);   
+
+ 
     
   useEffect(() => { 
     try {    
@@ -93,7 +95,7 @@ function Home() {
           <h5 className="card-header">{post.titulo}</h5>
           <div className="card-body">
             <p className="card-text">{post.text}</p>
-            <Link to={`/post?id=`+post.id.toString()} className="btn btn-primary"> Read Post</Link>
+            <Link to={`/post/`+post.id?.toString()} className="btn btn-primary"> Read Post</Link>
           </div>
         </div>
 

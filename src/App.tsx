@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/posts" element={<Posts />} />
         <Route path="/" element={<Login />} />
-        <Route path="/post" element={<Post />} />
+        <Route path="/post/:id" element={<Post />} />
         <Route path="/editorTeste" element={<EditorTeste />} />
         
         

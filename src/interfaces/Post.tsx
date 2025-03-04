@@ -1,5 +1,6 @@
 export default interface Post {
-    id: number; 
+    id?: number; 
+    userId?: number;
     titulo: string;
     text: string;
 }

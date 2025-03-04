@@ -3,23 +3,36 @@ import '../components/Editor/styles.scss';
 import '../components/Editor/global1.scss';
 import IPost from '../interfaces/Post';
 import PostService from '../services/PostService';
-import { useLocation } from 'react-router-dom';
+import { Route, useLocation, useParams } from 'react-router-dom';
 
 function Post() {
-  const [post, setPost] = useState<IPost>()
+  const [post, setPost] = useState<IPost | undefined>()
 
-  const location = useLocation();
-  const param = new URLSearchParams(location.search).get('id') || '1';
-  const id = parseInt(param);
-  
+//   const location = useLocation();
+//   const id = parseInt(new URLSearchParams(location.key).get(Route.) || '1');
+// alert(id) 
+  const id =  parseInt(useParams().id?.toString() || '1');  
+
   useEffect(() => {
-
+    
     PostService.getPostsById(id).then(
       (response) => {
         setPost(response.data);
       })
+      createPost();
+  },[]);
+  
+  function createPost() {
+      // const post: IPost = {id: 0, titulo: 'titulo', text: 'text',  userId: 1};
+      PostService.createPost(0,"77777777", "7777777777", 1).then(
+        (response) => {
+          console.log(response.data);
+        });
+      }
+  
 
-  }, []);
+  
+  
 
   return (
     <div key={post?.id} className="card">

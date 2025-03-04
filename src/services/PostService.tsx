@@ -10,6 +10,27 @@ const getAllPosts = () => {
   return axios.get(baseURL+API_URL, { headers: AuthHeader() });
 };
 
+
+
+const createPost = async (id:number, titulo:string,text:string, userId: number) => {
+  return await axios
+    .post<Post>(baseURL + API_URL + "/create", 
+    {
+      id,
+      titulo,
+      text,
+      userId
+    }, 
+    { headers: AuthHeader() })
+    .then((response : any) => {
+      if (response.data) {
+        //localStorage.setItem("user", JSON.stringify(response.data));
+        console.log(response.data)
+      }
+      return response;
+    });
+};
+
 const getPostsById = (id: number) => {
   return axios.get<Post>(baseURL + API_URL+"/getPostById", {headers: AuthHeader(), params: { id}});
 };
@@ -28,7 +49,8 @@ const PostService = {
   getAllPosts,
   getPostsPerPage,
   getPostCount,
-  getPostsById
+  getPostsById,
+  createPost
 };
 
 export default PostService;
