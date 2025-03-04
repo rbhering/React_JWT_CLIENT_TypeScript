@@ -12,15 +12,15 @@ function Post() {
 //   const id = parseInt(new URLSearchParams(location.key).get(Route.) || '1');
 // alert(id) 
   const id =  parseInt(useParams().id?.toString() || '1');  
+  const nada = '';
 
   useEffect(() => {
-    
     PostService.getPostsById(id).then(
       (response) => {
         setPost(response.data);
       })
       createPost();
-  },[]);
+  },[id]);
   
   function createPost() {
       // const post: IPost = {id: 0, titulo: 'titulo', text: 'text',  userId: 1};
