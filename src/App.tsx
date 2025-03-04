@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./pages/Login"
 import Posts from "./pages/Posts";
@@ -23,7 +23,7 @@ function App() {
         <Route path="/post/:id" element={<Post />} />
         <Route path="/editorTeste" element={<EditorTeste />} />
         
-        
+        <Route path="*" element={<Navigate to={"/posts"}/>} />  
       </Routes>
       <Footer />
       
