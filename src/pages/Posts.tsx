@@ -16,7 +16,7 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [pagesCount, setPagesCount] = useState();
-  const POSTS_PER_PAGE = 2;
+  const POSTS_PER_PAGE = 4;
 
 
   const logOut = () => {

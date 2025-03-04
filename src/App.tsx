@@ -23,7 +23,7 @@ function App() {
         <Route path="/post/:id" element={<Post />} />
         <Route path="/editorTeste" element={<EditorTeste />} />
         
-        <Route path="*" element={<Navigate to={"/posts"}/>} />  
+        <Route path="*" element={<Navigate to= {"/posts"}/>} />  
       </Routes>
       <Footer />
       
