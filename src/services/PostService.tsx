@@ -14,11 +14,8 @@ const getAllPosts = () => {
 //o nome da variavel é postViewModel igual ao tipo e ao parametro da api
 const createPost = async (postViewModel: Post) => {
   return await axios
-    .post<Post>(baseURL + API_URL + "/create", 
-   
-      postViewModel
-    , 
-    { headers: AuthHeader() })
+    .post<Post>(baseURL + API_URL + "/create",    
+      postViewModel, { headers: AuthHeader() })
     .then((response : any) => {
       if (response.data) {
         //localStorage.setItem("user", JSON.stringify(response.data));
