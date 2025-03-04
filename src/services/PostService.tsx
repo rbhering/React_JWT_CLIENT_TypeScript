@@ -11,16 +11,13 @@ const getAllPosts = () => {
 };
 
 
-
-const createPost = async (id:number, titulo:string,text:string, userId: number) => {
+//o nome da variavel é postViewModel igual ao tipo e ao parametro da api
+const createPost = async (postViewModel: Post) => {
   return await axios
     .post<Post>(baseURL + API_URL + "/create", 
-    {
-      id,
-      titulo,
-      text,
-      userId
-    }, 
+   
+      postViewModel
+    , 
     { headers: AuthHeader() })
     .then((response : any) => {
       if (response.data) {

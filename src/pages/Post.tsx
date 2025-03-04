@@ -23,8 +23,8 @@ function Post() {
   },[id]);
   
   function createPost() {
-      const post: IPost | undefined = {id: 0, titulo: 'und3fined teste', text: 'text',  userId: 1};
-      PostService.createPost(0,"77777777", "7777777777", 1).then(
+      const post1: IPost = {id: 0, titulo: 'und3fined teste', text: 'text',  userId: 1};
+      PostService.createPost(post1).then(
         (response) => {
           console.log(response.data);
         });
