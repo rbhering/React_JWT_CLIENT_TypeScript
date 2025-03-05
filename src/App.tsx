@@ -6,6 +6,7 @@ import Posts from "./pages/Posts";
 import Footer from "./components/Footer";
 import Post from "./pages/Post";
 import EditorTeste from "./pages/EditorTeste";
+import Header from "./components/Header";
 
 
 
@@ -15,6 +16,7 @@ function App() {
 
   return (
   <div>
+    <Header/>
     {/* {Util.RefreshToken()} */}
     <div className="container-md mt-5">
       <Routes>
