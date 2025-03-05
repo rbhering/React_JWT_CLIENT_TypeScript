@@ -18,6 +18,7 @@ function Post() {
     PostService.getPostsById(id).then(
       (response) => {
         setPost(response.data);
+        console.log(response.data); 
       })
       createPost();
   },[id]);

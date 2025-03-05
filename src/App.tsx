@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Post from "./pages/Post";
 import EditorTeste from "./pages/EditorTeste";
 import Header from "./components/Header";
+import CreateEditPost from "./pages/CreateEditPost";
 
 
 
@@ -24,6 +25,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/post/:id" element={<Post />} />
         <Route path="/editorTeste" element={<EditorTeste />} />
+        <Route path="/post/create-post" element={<CreateEditPost />} />
+        <Route path="/post/edit-post/:id" element={<CreateEditPost />} />
         
         <Route path="*" element={<Navigate to= {"/posts"}/>} />  
       </Routes>
