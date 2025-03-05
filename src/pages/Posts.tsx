@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthService from './../services/AuthService';
 import PostService from './../services/PostService';
 
@@ -12,21 +12,17 @@ import Post from "../interfaces/Post";
 
 function Home() {
 
-  
+
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [pagesCount, setPagesCount] = useState();
   const POSTS_PER_PAGE = 4;
 
 
-  const logOut = () => {
-    AuthService.logout();
-  };
 
 
 
-
-  const handleChange = (event: any, value:any) => {
+  const handleChange = (event: any, value: any) => {
     setPage(value);
   };
 
@@ -40,26 +36,26 @@ function Home() {
     } catch (error) {
       console.log(error);
     }
-  }, [page]);   
-
- 
-    
-  useEffect(() => { 
-    try {    
-          PostService.getPostCount().then(
-            (response) => {
-              GettPagesCount(response.data);
-            }
-          );    
-      } catch (error) {
-        console.log(error);
-      }
-  }, [posts]);  
-
-  
+  }, [page]);
 
 
-  
+
+  useEffect(() => {
+    try {
+      PostService.getPostCount().then(
+        (response) => {
+          GettPagesCount(response.data);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }, [posts]);
+
+
+
+
+
   function GettPagesCount(data: any) {
     let count = data;
     if (count % POSTS_PER_PAGE === 0) {
@@ -82,22 +78,26 @@ function Home() {
 
       <h1> Posts</h1>
       <div className="d-grid gap-2 mt-3">
-      
-        <Link to="/" onClick={logOut}>
+        <Link to="/post/create-post" >
           <button type="submit" className="btn btn-primary">
-            Logout
+            Creat Post
           </button>
         </Link>
+
       </div>
       {posts &&
-        posts.map((post : Post, i) =>         
-        <div key={post.id} className="card">
-          <h5 className="card-header">{post.titulo}</h5>
-          <div className="card-body">
-            <p className="card-text">{post.text}</p>
-            <Link to={`/post/`+post.id?.toString()} className="btn btn-primary"> Read Post</Link>
+        posts.map((post: Post, i) =>
+          <div key={post.id} className="card">
+            <h5 className="card-header">{post.titulo}</h5>
+            <div className="card-body">
+              <p className="card-text">{post.text}</p>
+              <Link to={"/post/edit-post/"+post.id} >
+                <button type="submit" className="btn btn-primary">
+                  Creat Post
+                </button>
+              </Link>
+            </div>
           </div>
-        </div>
 
 
 
@@ -107,7 +107,7 @@ function Home() {
         <Typography>Page: {page}</Typography>
         <Pagination count={pagesCount} page={page} onChange={handleChange} />
       </Stack>
-      
+
     </div>
 
   );
