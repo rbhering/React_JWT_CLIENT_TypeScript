@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthService from './../services/AuthService';
-import PostService from './../services/PostService';
+import AuthService from '../../services/AuthService';
+import PostService from '../../services/PostService';
 
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import Post from "../interfaces/Post";
+import Post from "../../interfaces/Post";
 
 
 
@@ -90,7 +90,8 @@ function Home() {
           <div key={post.id} className="card">
             <h5 className="card-header">{post.titulo}</h5>
             <div className="card-body">
-              <p className="card-text">{post.text}</p>
+            <p className="card-text">              
+              <p className="Features" dangerouslySetInnerHTML={{ __html: post.text }}/> </p>
               <Link to={"/post/edit-post/"+post.id} >
                 <button type="submit" className="btn btn-primary">
                   Creat Post

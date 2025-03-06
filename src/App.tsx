@@ -1,13 +1,14 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Login from "./pages/Login"
-import Posts from "./pages/Posts";
+import Login from "./pages/Auth/Login"
+import Posts from "./pages/Post/Posts";
 import Footer from "./components/Footer";
-import Post from "./pages/Post";
+import Post from "./pages/Post/Post";
 import EditorTeste from "./pages/EditorTeste";
 import Header from "./components/Header";
-import CreateEditPost from "./pages/CreateEditPost";
+import CreateEditPost from "./pages/Post/CreateEditPost";
+import Comments from "./pages/Comment/Comments";
 
 
 
@@ -27,6 +28,9 @@ function App() {
         <Route path="/editorTeste" element={<EditorTeste />} />
         <Route path="/post/create-post" element={<CreateEditPost />} />
         <Route path="/post/edit-post/:id" element={<CreateEditPost />} />
+        <Route path="/comments/:postId" element={<Comments />} />
+
+        
         
         <Route path="*" element={<Navigate to= {"/posts"}/>} />  
       </Routes>

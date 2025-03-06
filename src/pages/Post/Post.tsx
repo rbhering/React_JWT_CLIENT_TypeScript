@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import '../components/Editor/styles.scss';
-import '../components/Editor/global1.scss';
-import IPost from '../interfaces/Post';
-import PostService from '../services/PostService';
+import IPost from '../../interfaces/Post';
+import PostService from '../../services/PostService';
 import { Route, useLocation, useParams } from 'react-router-dom';
 
 function Post() {
