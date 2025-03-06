@@ -10,6 +10,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
+import Tooltip from "react-bootstrap/esm/Tooltip";
+import { FileUpload } from 'primereact/fileupload';
+import AuthService from './../../services/AuthService';
 
 const CreateEditPost = () => {
   const { id } = useParams<{ id?: string | undefined }>();
@@ -19,6 +22,8 @@ const CreateEditPost = () => {
   const [validated, setValidated] = useState(false);
   const [editorValidation, setEditorValidation] = useState("")
 
+  const userLogado = AuthService.getCurrentUser();
+  alert(userLogado.userNome)
   //alert(id);
   useEffect(() => {
     if (id !== undefined) {
@@ -38,7 +43,7 @@ const CreateEditPost = () => {
 
   function createPost() {
     const post1: IPost =
-      { id: 0, titulo: titulo, text: text, userId: 1 };//TEM QUE COLOCAR O IOD E O NOME OU EMAIL DO USER NO LOCALSTORAGE
+      { id: 0, titulo: titulo, text: text, userId: 1};//TEM QUE COLOCAR O IOD E O NOME OU EMAIL DO USER NO LOCALSTORAGE
     PostService.createPost(post1).then(
       (response) => {
         console.log(response.data);
@@ -56,9 +61,10 @@ const CreateEditPost = () => {
 
 
   const handleSubmit = (event: any) => {
+    event.preventDefault();
+
     const form = event.currentTarget;
-    if (form.checkValidity() === false || text === '') {
-      event.preventDefault();
+    if (form.checkValidity() === false || text === '') {      
       setEditorValidation('Please type a text.');
       alert(event.currentTarget);
       console.log(event.currentTarget)
@@ -110,6 +116,14 @@ const CreateEditPost = () => {
 
 
         </Row>
+
+        <Row className="mb-3">
+          <Form.Group className="mb-3" >
+          <FileUpload name="image" url={'/api/upload'} multiple accept="image/*" maxFileSize={999999999999999} 
+              emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
+          </Form.Group>
+        </Row>
+
         <br /><br />
         <Row className="mb-3">
           <Form.Group className="mb-3" >
