@@ -10,6 +10,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
+import Tooltip from "react-bootstrap/esm/Tooltip";
+import { FileUpload } from 'primereact/fileupload';
+import AuthService from './../../services/AuthService';
 
 const CreateEditPost = () => {
   const { id } = useParams<{ id?: string | undefined }>();
@@ -18,7 +21,10 @@ const CreateEditPost = () => {
   const [post, setPost] = useState<IPost | undefined>()
   const [validated, setValidated] = useState(false);
   const [editorValidation, setEditorValidation] = useState("")
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
+  const userLogado = AuthService.getCurrentUser();
+  //alert(userLogado.userName);
   //alert(id);
   useEffect(() => {
     if (id !== undefined) {
@@ -38,7 +44,7 @@ const CreateEditPost = () => {
 
   function createPost() {
     const post1: IPost =
-      { id: 0, titulo: titulo, text: text, userId: 1 };//TEM QUE COLOCAR O IOD E O NOME OU EMAIL DO USER NO LOCALSTORAGE
+      { id: 0, titulo: titulo, text: text, userId: 1};//TEM QUE COLOCAR O IOD E O NOME OU EMAIL DO USER NO LOCALSTORAGE
     PostService.createPost(post1).then(
       (response) => {
         console.log(response.data);
@@ -56,9 +62,10 @@ const CreateEditPost = () => {
 
 
   const handleSubmit = (event: any) => {
+    event.preventDefault();
+
     const form = event.currentTarget;
-    if (form.checkValidity() === false || text === '') {
-      event.preventDefault();
+    if (form.checkValidity() === false || text === '') {      
       setEditorValidation('Please type a text.');
       alert(event.currentTarget);
       console.log(event.currentTarget)
@@ -110,6 +117,54 @@ const CreateEditPost = () => {
 
 
         </Row>
+
+        <Row className="mb-3">
+          <Form.Group className="mb-3" >
+         
+
+
+
+      {/* Conditionally render the selected image if it exists */}
+      {selectedImage && (
+        <div>
+          {/* Display the selected image */}
+          <img
+            alt="not found"
+            width={"250px"}
+            src={URL.createObjectURL(selectedImage)}
+          />
+          <br /> <br />
+          {/* Button to remove the selected image */}
+          <button onClick={() => setSelectedImage(null)}>Remove</button>
+        </div>
+      )}
+
+      <br />
+
+      {/* Input element to select an image file */}
+      <input
+        type="file"
+        name="myImage"
+        // Event handler to capture file selection and update the state
+        onChange={(event) => {
+          console.log(event.target.files ? event.target.files[0] : null); // Log the selected file
+          setSelectedImage(event.target.files ? event.target.files[0] : null); // Update the state with the selected file
+        }}
+      />
+
+
+
+
+
+
+
+
+
+
+
+          </Form.Group>
+        </Row>
+
         <br /><br />
         <Row className="mb-3">
           <Form.Group className="mb-3" >
