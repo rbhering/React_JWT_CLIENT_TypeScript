@@ -10,9 +10,6 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-import Tooltip from "react-bootstrap/esm/Tooltip";
-import { FileUpload } from 'primereact/fileupload';
-import AuthService from './../../services/AuthService';
 
 const CreateEditPost = () => {
   const { id } = useParams<{ id?: string | undefined }>();
@@ -21,7 +18,6 @@ const CreateEditPost = () => {
   const [post, setPost] = useState<IPost | undefined>()
   const [validated, setValidated] = useState(false);
   const [editorValidation, setEditorValidation] = useState("")
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   //alert(id);
   useEffect(() => {
@@ -42,7 +38,7 @@ const CreateEditPost = () => {
 
   function createPost() {
     const post1: IPost =
-      { id: 0, titulo: titulo, text: text, userId: 1};//TEM QUE COLOCAR O IOD E O NOME OU EMAIL DO USER NO LOCALSTORAGE
+      { id: 0, titulo: titulo, text: text, userId: 1 };//TEM QUE COLOCAR O IOD E O NOME OU EMAIL DO USER NO LOCALSTORAGE
     PostService.createPost(post1).then(
       (response) => {
         console.log(response.data);
@@ -60,10 +56,9 @@ const CreateEditPost = () => {
 
 
   const handleSubmit = (event: any) => {
-    event.preventDefault();
-
     const form = event.currentTarget;
-    if (form.checkValidity() === false || text === '') {      
+    if (form.checkValidity() === false || text === '') {
+      event.preventDefault();
       setEditorValidation('Please type a text.');
       alert(event.currentTarget);
       console.log(event.currentTarget)
