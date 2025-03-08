@@ -1,5 +1,6 @@
 export default interface User {
-    accessToken: string;
-    expiration: Date;
-    refreshToken: string;
+    nome?: string;
+    accessToken?: number;
+    expiration?: Date;
+    refreshToken?: string;
 }

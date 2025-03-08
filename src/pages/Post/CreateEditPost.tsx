@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Editor } from 'primereact/editor';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import IPost from '../../interfaces/Post';
 import PostService from "../../services/PostService";
 
@@ -11,17 +11,19 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import Tooltip from "react-bootstrap/esm/Tooltip";
-import { FileUpload } from 'primereact/fileupload';
 import AuthService from './../../services/AuthService';
+import User from './../../interfaces/User';
 
 const CreateEditPost = () => {
   const { id } = useParams<{ id?: string | undefined }>();
   const [text, setText] = useState('')
   const [titulo, setTitulo] = useState('')
-  const [post, setPost] = useState<IPost | undefined>()
+  const [post, setPost] = useState<IPost>()
   const [validated, setValidated] = useState(false);
   const [editorValidation, setEditorValidation] = useState("")
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [teste, setTeste] = useState(5);
+
 
   const userLogado = AuthService.getCurrentUser();
   //alert(userLogado.userName);
@@ -38,13 +40,14 @@ const CreateEditPost = () => {
           setTitulo(response.data.titulo);
         })
       //createPost();
-
     }
   }, [id]);
 
+  alert( post !== undefined ? post.user?.nome : '');
+
   function createPost() {
     const post1: IPost =
-      { id: 0, titulo: titulo, text: text, userId: 1};//TEM QUE COLOCAR O IOD E O NOME OU EMAIL DO USER NO LOCALSTORAGE
+      { id: 0, titulo: titulo, text: text, userId: 1, user:{nome:'kjl'}};//TEM QUE COLOCAR O IOD E O NOME OU EMAIL DO USER NO LOCALSTORAGE
     PostService.createPost(post1).then(
       (response) => {
         console.log(response.data);
@@ -61,7 +64,11 @@ const CreateEditPost = () => {
   },[text])
 
 
+
+
+
   const handleSubmit = (event: any) => {
+    console.log('function handleSubmit' );
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -80,12 +87,24 @@ const CreateEditPost = () => {
 
     setValidated(true);
   };
+  
+  // let count = 1;
+  // const call = useCallback(()=> {
+  //   console.log('useCallback' + count.toString())
+  //   setTeste(count++)
+  // },[teste])
 
-
+  // const eff = useEffect(()=>{
+  //   console.log('useEffect' + count.toString())
+  //   setTeste(count++);
+  // }, [teste])
 
   return (
     <div>
-
+      {post !== undefined ? post.user?.nome : ''}
+      {/* <button onClick={()=> call}>clicar call</button>
+      <button onClick={()=> eff }>clicar eff</button> */}
+     
       {/* <Editor value={text} onTextChange={(e) => setText(e.htmlValue ?? '')} style={{ height: '320px' }} /> */}
 
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
