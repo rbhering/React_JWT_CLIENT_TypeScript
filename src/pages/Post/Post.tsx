@@ -4,7 +4,7 @@ import PostService from '../../services/PostService';
 import { Route, useLocation, useParams } from 'react-router-dom';
 
 function Post() {
-  const [post, setPost] = useState<IPost | undefined>()
+  const [post, setPost] = useState<IPost>({id:0})
 
 //   const location = useLocation();
 //   const id = parseInt(new URLSearchParams(location.key).get(Route.) || '1');
@@ -18,7 +18,7 @@ function Post() {
         setPost(response.data);
         console.log(response.data); 
       })
-      createPost();
+      //createPost();
   },[id]);
   
   function createPost() {
@@ -37,7 +37,7 @@ function Post() {
     <div key={post?.id} className="card">
         <h5 className="card-header">{post?.titulo}</h5>
         <div className="card-body">
-            <p className="card-text">{post?.text}</p>
+            <p className="Features" dangerouslySetInnerHTML={{ __html: post.text ?? '' }}/> 
         </div>
     </div>
   );

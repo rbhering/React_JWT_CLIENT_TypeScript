@@ -18,7 +18,7 @@ const CreateEditPost = () => {
   const { id } = useParams<{ id?: string | undefined }>();
   const [text, setText] = useState('')
   const [titulo, setTitulo] = useState('')
-  const [post, setPost] = useState<IPost>()
+  const [post, setPost] = useState<IPost>({id:0, titulo:'', text:''})
   const [validated, setValidated] = useState(false);
   const [editorValidation, setEditorValidation] = useState("")
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -36,14 +36,14 @@ const CreateEditPost = () => {
         (response) => {
           setPost(response.data);
           console.log(response.data);
-          setText(response.data.text);
-          setTitulo(response.data.titulo);
+          setText(response.data.text?? '');
+          setTitulo(response.data.titulo ?? '');
         })
       //createPost();
     }
   }, [id]);
 
-  alert( post !== undefined ? post.user?.nome : '');
+  //alert( post !== undefined ? post.user?.nome : '');
 
   function createPost() {
     const post1: IPost =
@@ -101,7 +101,10 @@ const CreateEditPost = () => {
 
   return (
     <div>
-      {post !== undefined ? post.user?.nome : ''}
+      {/* {post !== undefined ? post.user?.nome : ''} */}
+      {post.titulo}
+      {post.id}
+      {post.user?.nome}
       {/* <button onClick={()=> call}>clicar call</button>
       <button onClick={()=> eff }>clicar eff</button> */}
      
@@ -127,7 +130,7 @@ const CreateEditPost = () => {
         <Row className="mb-12">
           {/* <Form.Group as={Col} md="12" controlId="validationCustom03">
             <Form.Label>City</Form.Label> */}
-            <Editor value={text} onTextChange={(e) => setText(e.htmlValue ?? '')} required style={{ height: '320px' }} />
+            <Editor value={post.text} onTextChange={(e) => setText(e.htmlValue ?? '')} required style={{ height: '320px' }} />
             {/* <Form.Control.Feedback type="invalid">
               Please type a text.
             </Form.Control.Feedback> */}
